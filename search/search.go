@@ -21,9 +21,9 @@ func (_b BinarySearch[T]) helper(key T, lo, hi int) int {
 		mid := (lo + hi) / 2
 		cmp := _b.Items[mid].CompareTo(key)
 		if cmp < 0 {
-			return _b.helper(key, lo, mid-1)
-		} else if cmp > 0 {
 			return _b.helper(key, mid+1, hi)
+		} else if cmp > 0 {
+			return _b.helper(key, lo, mid-1)
 		} else {
 			return mid
 		}
