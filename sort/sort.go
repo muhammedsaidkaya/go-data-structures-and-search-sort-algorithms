@@ -92,11 +92,11 @@ func mergeSortHelper[T searchAlgorithms.Comparable[T]](list, left, right []T, le
 }
 
 func QuickSort[T searchAlgorithms.Comparable[T]](list []T) {
-	shuffle(list)
+	Shuffle(list)
 	quickSortHelper(list, 0, len(list)-1)
 }
 
-func shuffle[T searchAlgorithms.Comparable[T]](list []T) {
+func Shuffle[T searchAlgorithms.Comparable[T]](list []T) {
 	for i := range list {
 		j := rand.Intn(i + 1)
 		list[i], list[j] = list[j], list[i]

@@ -27,6 +27,49 @@ func (node *Node[T]) put(x *Node[T], value T) *Node[T] {
 	return x
 }
 
+func hibbardDeletion[T searchAlgorithms.Comparable[T]](x *Node[T], value T) *Node[T] {
+	if x == nil {
+		return nil
+	}
+	cmp := value.CompareTo(x.Value)
+	if cmp < 0 {
+		x.Left = hibbardDeletion(x.Left, value)
+	} else if cmp > 0 {
+		x.Right = hibbardDeletion(x.Right, value)
+	} else {
+		if x.Right == nil {
+			return x.Left
+		} else {
+			t := x
+			x = minNode(t.Right)
+			x.Right = deleteMin(t.Right)
+			x.Left = t.Left
+		}
+	}
+	return x
+}
+
+func minNode[T searchAlgorithms.Comparable[T]](x *Node[T]) *Node[T] {
+	if x == nil {
+		return nil
+	} else if x.Left == nil {
+		return x
+	} else {
+		return minNode(x.Left)
+	}
+}
+
+func deleteMin[T searchAlgorithms.Comparable[T]](x *Node[T]) *Node[T] {
+	if x == nil {
+		return nil
+	} else if x.Left == nil {
+		return x.Right
+	} else {
+		x.Left = deleteMin(x.Left)
+	}
+	return x
+}
+
 type BST[T searchAlgorithms.Comparable[T]] struct {
 	Root *Node[T]
 }
@@ -52,6 +95,10 @@ func (bst *BST[T]) Get(value T) *Node[T] {
 		}
 	}
 	return nil
+}
+
+func (bst *BST[T]) Delete(value T) {
+	bst.Root = hibbardDeletion(bst.Root, value)
 }
 
 func (bst BST[T]) InOrder(x *Node[T], list []T) []T {
