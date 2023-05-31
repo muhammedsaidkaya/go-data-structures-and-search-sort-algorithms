@@ -1,4 +1,4 @@
-package search
+package searchAlgorithms
 
 type Comparable[T any] interface {
 	CompareTo(other T) int
