@@ -68,6 +68,71 @@ func main() {
 	bst.Delete(Person{ID: 2})
 	result = bst.Get(Person{ID: 2})
 	fmt.Println(result)
+
+	queue := custom_types.NewQueue[Person]()
+	fmt.Println(queue)
+	queue.Enqueue(Person{ID: 1})
+	queue.Enqueue(Person{ID: 2})
+	fmt.Println(queue)
+	item, _ := queue.Dequeue()
+	fmt.Println(item)
+	fmt.Println(queue)
+
+	stack := custom_types.NewStack[Person](2)
+	fmt.Println(stack)
+	stack.Push(Person{ID: 1})
+	fmt.Println(stack)
+	stack.Push(Person{ID: 2})
+	fmt.Println(stack)
+	err := stack.Push(Person{ID: 3})
+	fmt.Println(err)
+	value, _ := stack.Pop()
+	fmt.Println(value)
+	fmt.Println(stack)
+	fmt.Println(stack.Tail)
+	stack.Push(Person{ID: 3})
+	fmt.Println(stack)
+
+	fmt.Println("\nLINKED LIST")
+	ll := custom_types.NewLinkedList[Person](&custom_types.LinkedListOptions{
+		SortOptions:         &custom_types.SortOptions{Sorted: true, Desc: false},
+		MultipleOccurrences: true,
+		Reversed:            true,
+	}).Data(peopleList)
+	//ll := custom_types.NewSortedLinkedList[Person]()
+	fmt.Println(ll.IsCircular())
+	fmt.Println(ll)
+	fmt.Println(ll.Length())
+	ll.Remove(Person{ID: 4})
+	ll.Reverse()
+	ll.RemoveByIndex(2)
+	fmt.Println(ll)
+	item, _ = ll.GetByIndex(1)
+	fmt.Println(item)
+	fmt.Println(ll.GetSortedList())
+
+	fmt.Println(ll.GetLastNthItem(1))
+
+	ll.Insert(Person{ID: 3})
+	ll.Insert(Person{ID: 5})
+	ll.Insert(Person{ID: 6})
+	ll.Insert(Person{ID: 6})
+	fmt.Println(ll)
+	item, _ = ll.GetMiddleItem()
+	fmt.Println(item)
+	fmt.Println(ll.Count(Person{ID: 6}))
+	ll.RemoveDuplicates()
+	fmt.Println(ll)
+	ll.Shuffle()
+	ll.Sort()
+	fmt.Println(ll)
+
+	lt := custom_types.NewSortedLinkedList[Person]().Data([]Person{
+		{ID: 2},
+		{ID: 5},
+	})
+	fmt.Println(lt)
+	fmt.Println(ll.Intersection(lt))
 }
 
 type Person struct {
